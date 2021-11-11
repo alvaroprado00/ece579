@@ -10,6 +10,15 @@ final myButtonStyle = ButtonStyle(
   ),
 );
 
+final myButtonAuthoritiesStyle = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all<Color>(const Color(000000)),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+);
+
 final myRoundedButtonStyle=ButtonStyle(
   backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF94F9E1)),
   shape: MaterialStateProperty.all<CircleBorder>(

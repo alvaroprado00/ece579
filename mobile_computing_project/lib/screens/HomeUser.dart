@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mobile_computing_project/screens/CreateReportUser.dart';
+import 'package:mobile_computing_project/screens/EditProfileUser.dart';
 import 'package:mobile_computing_project/screens/ViewReportUser.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,8 +31,16 @@ class _HomeUserState extends State<HomeUser> {
               Icons.settings,
               color: Colors.black,
             ),
-            onPressed: (){
-              print("go to profile page");
+            onPressed:(){
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  duration:const Duration(milliseconds: 300),
+                  reverseDuration:const Duration(milliseconds: 300),
+                  child: EditProfileUser(),
+                ),
+              );
             },
           )
         ],

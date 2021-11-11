@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_computing_project/screens/ViewReportExpertX.dart';
 import 'package:mobile_computing_project/screens/ViewReportUserX.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
@@ -108,10 +109,20 @@ class _ViewReportExpertState extends State<ViewReportExpert> {
                         ),
                         Align(
                           alignment: AlignmentDirectional(0.05, 0),
-                          child: Icon(
-                            Icons.chevron_right,
-                            color: Color(0xFF95A1AC),
-                            size: 28,
+                          child: IconButton(
+                            icon: Icon(Icons.chevron_right),
+                            color: Colors.black,
+                            onPressed:(){
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.rightToLeft,
+                                  duration:const Duration(milliseconds: 300),
+                                  reverseDuration:const Duration(milliseconds: 300),
+                                  child: ViewReportExpertX(),
+                                ),
+                              );
+                            },
                           ),
                         )
                       ],

@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_computing_project/util.dart';
 
-class ViewReportUserX extends StatefulWidget {
+
+class ViewReportExpertX extends StatefulWidget {
   //ViewReportUserXWidget({Key key}) : super(key: key);
 
   @override
-  _ViewReportUserXState createState() => _ViewReportUserXState();
+  _ViewReportExpertXState createState() => _ViewReportExpertXState();
 }
 
-class _ViewReportUserXState extends State<ViewReportUserX> {
+class _ViewReportExpertXState extends State<ViewReportExpertX> {
   late TextEditingController textController;
   bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -149,12 +150,12 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                         .spaceBetween,
                                                     children: [
                                                       AutoSizeText(
-                                                        'Report 2 answer title',
-                                                        style: myTextFieldStyle
+                                                          'Report 2 answer title',
+                                                          style: myTextFieldStyle
                                                       ),
                                                       Text(
-                                                        'Date answered',
-                                                        style: myTextFieldStyle
+                                                          'Date answered',
+                                                          style: myTextFieldStyle
                                                       )
                                                     ],
                                                   ),
@@ -163,8 +164,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(0, 8, 0, 0),
                                                   child: Text(
-                                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.',
-                                                    style: myTextFieldStyle
+                                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.',
+                                                      style: myTextFieldStyle
                                                   ),
                                                 )
                                               ],
@@ -186,82 +187,101 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15, 15, 15, 25),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                          AlignmentDirectional(-0.05, 0),
-                                          child: AutoSizeText(
-                                            'Report 2 title',
-                                            textAlign: TextAlign.start,
-                                            style: myTextFieldStyle
+                          child: Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15, 15, 15, 25),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                            AlignmentDirectional(-0.05, 0),
+                                            child: AutoSizeText(
+                                                'Report 2 title',
+                                                textAlign: TextAlign.start,
+                                                style: myTextFieldStyle
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      TextFormField(
+                                        controller: textController,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          hintText: 'type your answer here...',
+                                          hintStyle: myHintStyle,
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.black,
+                                              width: 1,
+                                            ),
+                                            borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    TextFormField(
-                                      controller: textController,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'type your answer here...',
-                                        hintStyle: myHintStyle,
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.black,
+                                              width: 1,
+                                            ),
+                                            borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(4.0),
+                                              topRight: Radius.circular(4.0),
+                                            ),
+                                          ),
+                                        ),
+                                        style: myTextFieldStyle,
+                                        textAlign: TextAlign.justify,
+                                        maxLines: 10,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: ElevatedButton.icon(
+                                          onPressed:(){
+                                            print("click");
+                                          },
+                                          icon:const Icon(
+                                            Icons.navigate_next,
+                                            size: 15,
                                             color: Colors.black,
-                                            width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
+                                          style: myButtonStyle,
+                                          label:
+                                          Text('Send message', style: labelStyleForButton),
                                         ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 15, 0, 0),
+                                        child: ElevatedButton.icon(
+                                          onPressed:(){
+                                            print("Call the police");
+                                          },
+                                          icon:const Icon(
+                                            Icons.navigate_next,
+                                            size: 15,
                                             color: Colors.black,
-                                            width: 1,
                                           ),
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(4.0),
-                                            topRight: Radius.circular(4.0),
-                                          ),
+                                          style: myButtonAuthoritiesStyle, // is there a way to override color param?
+                                          label:
+                                          Text('Contact authorities', style: labelStyleForButton),
                                         ),
                                       ),
-                                      style: myTextFieldStyle,
-                                      textAlign: TextAlign.justify,
-                                      maxLines: 14,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 15, 0, 0),
-                                      child: ElevatedButton.icon(
-                                        onPressed:(){
-                                          print("click");
-                                        },
-                                        icon:const Icon(
-                                          Icons.navigate_next,
-                                          size: 15,
-                                          color: Colors.black,
-                                        ),
-                                        style: myButtonStyle,
-                                        label:
-                                        Text('Send message', style: labelStyleForButton),
-                                      ),
-                                      ),
-                                  ],
-                                ),
-                              )
-                            ],
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
