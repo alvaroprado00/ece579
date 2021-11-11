@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_computing_project/screens/ViewReportUserX.dart';
 import 'package:mobile_computing_project/util.dart';
+import 'package:page_transition/page_transition.dart';
+
 
 
 // WHY IS Background blue and not white?
@@ -68,7 +71,21 @@ class _ViewReportUserState extends State<ViewReportUser> {
                                   Text(
                                     'Date creation',
                                     style: labelStyleForButton
-                                  )
+                                  ),
+                                  IconButton(
+                                      onPressed:(){
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type: PageTransitionType.rightToLeft,
+                                            duration:const Duration(milliseconds: 300),
+                                            reverseDuration:const Duration(milliseconds: 300),
+                                            child: ViewReportUserX(),
+                                          ),
+                                        );
+                                      },
+                                      icon:
+                                      Icon(Icons.arrow_forward))
                                 ],
                               ),
                             ),
@@ -78,7 +95,7 @@ class _ViewReportUserState extends State<ViewReportUser> {
                                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.',
                                 style: myTextFieldStyle,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       )
@@ -110,12 +127,26 @@ class _ViewReportUserState extends State<ViewReportUser> {
                               children: [
                                 Text(
                                   'Report 2',
-                                  style: labelStyleForButton
+                                  style: myTextFieldStyle
                                 ),
                                 Text(
                                   'Date answered',
-                                  style: labelStyleForButton
-                                )
+                                  style: myTextFieldStyle
+                                ),
+                                IconButton(
+                                    onPressed:(){
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.rightToLeft,
+                                          duration:const Duration(milliseconds: 300),
+                                          reverseDuration:const Duration(milliseconds: 300),
+                                          child: ViewReportUserX(),
+                                        ),
+                                      );
+                                    },
+                                    icon:
+                                    Icon(Icons.arrow_forward))
                               ],
                             ),
                           ),

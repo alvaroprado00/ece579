@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mobile_computing_project/screens/HomeExpert.dart';
 import 'package:mobile_computing_project/signInExpert.dart';
 import 'package:mobile_computing_project/SignInUser.dart';
 import 'package:mobile_computing_project/util.dart';
@@ -186,19 +187,30 @@ class _LogInPageState extends State<LogInPage> {
                 width: 130,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                        type: PageTransitionType.rightToLeft,
-                        duration:const Duration(milliseconds: 300),
-                        reverseDuration:const Duration(milliseconds: 300),
-                        child:HomeUser(),
-                    ),
-                    );
-                  },
+                  child:Text("Click me "),
+                    onPressed: (){
+                      if(widget.user) {
+                          Navigator.push(context,
+                              PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: const Duration(milliseconds: 300),
+                              reverseDuration: const Duration(milliseconds: 300),
+                              child: HomeUser(),
+                                  ),
+                              );
+                      }
+                      else{
+                      Navigator.push(context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          duration: const Duration(milliseconds: 300),
+                          reverseDuration: const Duration(milliseconds: 300),
+                          child: HomeExpert(),
+                          ),
+                        );
+                      }},
                   style: myButtonStyle,
-                  child: Text('Enter', style: labelStyleForButton),
+                  //child: Text('Enter', style: labelStyleForButton),
                 ),
               ),
               const Spacer(),
