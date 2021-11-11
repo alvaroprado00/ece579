@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mobile_computing_project/diploma.dart';
+import 'package:mobile_computing_project/Diploma.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
 

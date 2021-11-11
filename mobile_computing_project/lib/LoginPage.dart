@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_computing_project/sing_in_expert.dart';
-import 'package:mobile_computing_project/sing_in_user.dart';
+import 'package:mobile_computing_project/signInExpert.dart';
+import 'package:mobile_computing_project/SignInUser.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:mobile_computing_project/screens/HomeUser.dart';
 
 class LogInPage extends StatefulWidget {
 
   bool user;
   //LogInPage({Key key}) : super(key: key);
 
-  LogInPage({required this.user});
+  LogInPage({required final this.user}); // can we put final for this field?
 
 
   @override
@@ -185,8 +186,17 @@ class _LogInPageState extends State<LogInPage> {
                 width: 130,
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: () {},
-
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        duration:const Duration(milliseconds: 300),
+                        reverseDuration:const Duration(milliseconds: 300),
+                        child:HomeUser(),
+                    ),
+                    );
+                  },
                   style: myButtonStyle,
                   child: Text('Enter', style: labelStyleForButton),
                 ),
@@ -211,7 +221,8 @@ class _LogInPageState extends State<LogInPage> {
                         child: SingInUser(),
                       ),
                     );
-                  }else{
+                  }
+                  else{
                     Navigator.push(context,
                       PageTransition(
                         type: PageTransitionType.fade,
