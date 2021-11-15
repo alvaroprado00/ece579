@@ -127,3 +127,13 @@ Container getRoundedIcon({required IconData icon}){
     ),
   );
 }
+
+Widget getMyDivider(){
+  return const Divider(
+    height: 1,
+    thickness: 1,
+    indent: 10,
+    endIndent: 10,
+    color: Colors.black,
+  );
+}

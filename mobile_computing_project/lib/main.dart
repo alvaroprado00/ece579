@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'LoginPage.dart';
+import 'login_page.dart';
 
 void main() {
   runApp(const MyApp());

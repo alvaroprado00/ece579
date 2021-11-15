@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_computing_project/screens/ViewReportExpertX.dart';
-import 'package:mobile_computing_project/screens/ViewReportUserX.dart';
+import 'package:mobile_computing_project/screens/view_report_expertX.dart';
+import 'package:mobile_computing_project/screens/view_report_userX.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
 

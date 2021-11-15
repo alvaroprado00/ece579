@@ -1,22 +1,24 @@
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mobile_computing_project/SignInUserEmail.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
+import 'contact_info_expert.dart';
 
-class SingInUser extends StatefulWidget {
-  //SingInUserWidget({Key key}) : super(key: key);
+class SingInExpertPage extends StatefulWidget {
+  //SingInExpertWidget({Key key}) : super(key: key);
 
   @override
-  _SingInUserState createState() => _SingInUserState();
+  _SingInExpertPageState createState() => _SingInExpertPageState();
 }
 
-class _SingInUserState extends State<SingInUser> {
+class _SingInExpertPageState extends State<SingInExpertPage> {
   late TextEditingController textController1;
   late TextEditingController textController2;
- // final formKey = GlobalKey<FormState>();
-  // final scaffoldKey = GlobalKey<ScaffoldState>();
+  //bool _loadingButton = false;
+  //final formKey = GlobalKey<FormState>();
+  //final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -30,13 +32,13 @@ class _SingInUserState extends State<SingInUser> {
     return Scaffold(
       //key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: Color(0xFF94F9E1),
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: const Color(0xFF94F9E1),
+        iconTheme: const IconThemeData(color: Colors.black),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
         elevation: 4,
-        title: Text('User Info', style: appBarTextStyle,),
+        title: Text('Expert Info',style: appBarTextStyle,),
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
@@ -44,22 +46,22 @@ class _SingInUserState extends State<SingInUser> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              flex: 30,
+              flex: 60,
               child: Padding(
-
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                 child: Lottie.asset(
-                  'lib/assets/lottie_animations/sing_in_animation_sun.json',
-                  width: 350,
+                  'lib/assets/lottie_animations/sing_in_expert.json',
+                  width: 200,
                   height: 130,
                   fit: BoxFit.fill,
+                  repeat: false,
                   animate: true,
                 ),
               ),
             ),
             const Spacer(flex: 3),
             Text(
-              'Welcome to the family',
+              'We are really happy to have you here!',
               textAlign: TextAlign.center,
               style: GoogleFonts.getFont(
                 'Lato',
@@ -68,23 +70,11 @@ class _SingInUserState extends State<SingInUser> {
                 fontSize: 25,
               ),
             ),
-            const Spacer(flex: 7),
+            const Spacer(flex: 9),
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: 75,
-                  height: 75,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF94F9E1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
-                    size: 44,
-                  ),
-                ),
+                getRoundedIcon(icon: Icons.person),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
                   child: TextFormField(
@@ -115,7 +105,6 @@ class _SingInUserState extends State<SingInUser> {
                       if (val!.isEmpty) {
                         return 'Field is required';
                       }
-
                       return null;
                     },
                   ),
@@ -126,22 +115,7 @@ class _SingInUserState extends State<SingInUser> {
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: 75,
-                  height: 75,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF94F9E1),
-                    shape: BoxShape.circle,
-                  ),
-                  child:const  Align(
-                    alignment: AlignmentDirectional(-0.05, 0),
-                    child: Icon(
-                      Icons.lock_outlined,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ),
+                getRoundedIcon(icon: Icons.lock),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                   child: TextFormField(
@@ -151,14 +125,14 @@ class _SingInUserState extends State<SingInUser> {
                     decoration: InputDecoration(
                       hintText: ' Password',
                       hintStyle: myHintStyle,
-                      enabledBorder:myUnderlineInputBorderForTextField,
-                      focusedBorder:myUnderlineInputBorderForTextField,
+                      enabledBorder: myUnderlineInputBorderForTextField,
+                      focusedBorder: myUnderlineInputBorderForTextField,
                       suffixIcon: textController2.text.isNotEmpty
                           ? InkWell(
                         onTap: () => setState(
                               () => textController2.clear(),
                         ),
-                        child:const Icon(
+                        child: const Icon(
                           Icons.clear,
                           color: Colors.black,
                           size: 22,
@@ -166,14 +140,13 @@ class _SingInUserState extends State<SingInUser> {
                       )
                           : null,
                     ),
-                    style:myTextFieldStyle,
+                    style: myTextFieldStyle,
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.visiblePassword,
                     validator: (val) {
                       if (val!.isEmpty) {
                         return 'Field is required';
                       }
-
                       return null;
                     },
                   ),
@@ -181,39 +154,28 @@ class _SingInUserState extends State<SingInUser> {
               ],
             ),
             const Spacer(flex: 15),
-            SizedBox(
-              width: 130,
-              height: 40,
-
-              child: ElevatedButton.icon(
-                onPressed:(){
-
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.leftToRight,
-                      duration:const Duration(milliseconds: 300),
-                      reverseDuration:const Duration(milliseconds: 300),
-                      child: UserEmailPage(),
-                    ),
-                  );
-                },
-
-                icon:const Icon(
-                  Icons.navigate_next,
-                  color: Colors.black,
-                  size: 15,
-
-                ),
-                style: myButtonStyle,
-
-                label:
-                Text('Next', style: labelStyleForButton),
+            ElevatedButton.icon(
+              onPressed:(){
+                Navigator.push(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    duration:const Duration(milliseconds: 300),
+                    reverseDuration:const Duration(milliseconds: 300),
+                    child: ContactInfoPage(),
+                  ),
+                );
+              },
+              icon:const Icon(
+                Icons.navigate_next,
+                size: 15,
+                color: Colors.black,
               ),
+              style: myButtonStyle,
+              label:
+              Text('Next', style: labelStyleForButton),
             ),
-
-            const Spacer(flex: 3),
-
+            Spacer(flex:5),
           ],
         ),
       ),

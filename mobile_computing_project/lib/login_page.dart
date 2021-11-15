@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mobile_computing_project/screens/HomeExpert.dart';
-import 'package:mobile_computing_project/signInExpert.dart';
-import 'package:mobile_computing_project/SignInUser.dart';
+import 'package:mobile_computing_project/screens/home_expert.dart';
+import 'package:mobile_computing_project/sign_in_expert.dart';
+import 'package:mobile_computing_project/sing_in_user.dart';
 import 'package:mobile_computing_project/util.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:mobile_computing_project/screens/HomeUser.dart';
+import 'package:mobile_computing_project/screens/home_user.dart';
 
 class LogInPage extends StatefulWidget {
 
@@ -187,7 +187,7 @@ class _LogInPageState extends State<LogInPage> {
                 width: 130,
                 height: 40,
                 child: ElevatedButton(
-                  child:Text("Click me "),
+                  child:Text("Log In", style: labelStyleForButton,),
                     onPressed: (){
                       if(widget.user) {
                           Navigator.push(context,
