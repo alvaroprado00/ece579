@@ -13,7 +13,7 @@ class UserEmailPage extends StatefulWidget {
 class _UserEmailPageState extends State<UserEmailPage> {
   late TextEditingController textController;
  // bool _loadingButton = false;
- // final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   // final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,114 +37,127 @@ class _UserEmailPageState extends State<UserEmailPage> {
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-              child: Lottie.asset(
-                'lib/assets/lottie_animations/email.json',
-                width: 200,
-                height: 200,
-                fit: BoxFit.cover,
-                frameRate: FrameRate(20),
-                animate: true,
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                child: Lottie.asset(
+                  'lib/assets/lottie_animations/email.json',
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                  frameRate: FrameRate(20),
+                  animate: true,
+                ),
               ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
-              child: TextFormField(
-                onChanged: (_) => setState(() {}),
-                controller: textController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Email address',
-                  enabledBorder: myUnderlineInputBorderForTextField,
-                  focusedBorder: myUnderlineInputBorderForTextField,
-                  suffixIcon: textController.text.isNotEmpty
-                      ? InkWell(
-                    onTap: () => setState(
-                          () => textController.clear(),
-                    ),
-                    child:const Icon(
-                      Icons.clear,
-                      color: Colors.black,
-                      size: 22,
-                    ),
-                  )
-                      : null,
-                ),
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
-
-                textAlign: TextAlign.start,
-                keyboardType: TextInputType.emailAddress,
-                validator: (val) {
-                  if (val!.isEmpty) {
-                    return 'Field is required';
-                  }
-
-                  return null;
-                },
-              ),
-            ),
-            const Spacer(flex: 2),
-
-            SizedBox(
-              width: 130,
-              height: 40,
-              child: ElevatedButton.icon(
-                onPressed: () {},
-
-                style: myButtonStyle,
-                icon:const Icon(
-                  Icons.done,
-                  size: 15,
-                  color: Colors.black,
-                ),
-                label: Text('Enter', style: labelStyleForButton),
-              ),
-            ),
-
-            const Spacer(),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset(
-                    'lib/assets/images/alert.png',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-                    child: Text(
-                      'Your email information will never be shared without your consent',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.getFont(
-                        'Lato',
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
+                child: TextFormField(
+                  onChanged: (_) => setState(() {}),
+                  controller: textController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Email address',
+                    enabledBorder: myUnderlineInputBorderForTextField,
+                    focusedBorder: myUnderlineInputBorderForTextField,
+                    suffixIcon: textController.text.isNotEmpty
+                        ? InkWell(
+                      onTap: () => setState(
+                            () => textController.clear(),
+                      ),
+                      child:const Icon(
+                        Icons.clear,
                         color: Colors.black,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 22,
+                        size: 22,
+                      ),
+                    )
+                        : null,
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+
+                  textAlign: TextAlign.start,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (val) {
+                    if (val==null|| val.isEmpty) {
+                      return 'Field is required';
+                    }
+
+                    return null;
+                  },
+                ),
+              ),
+              const Spacer(flex: 2),
+
+              SizedBox(
+                width: 130,
+                height: 40,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    if(formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Creating User')),
+                      );
+
+                     // createUser();
+                    }
+                  },
+
+                  style: myButtonStyle,
+                  icon:const Icon(
+                    Icons.done,
+                    size: 15,
+                    color: Colors.black,
+                  ),
+                  label: Text('Enter', style: labelStyleForButton),
+                ),
+              ),
+
+              const Spacer(),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      'lib/assets/images/alert.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                      child: Text(
+                        'Your email information will never be shared without your consent',
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.getFont(
+                          'Lato',
+                          color: Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 22,
+                        ),
                       ),
                     ),
-                  ),
-                )
-              ],
-            ),
-            const Spacer(flex: 7)
-          ],
+                  )
+                ],
+              ),
+              const Spacer(flex: 7)
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+
