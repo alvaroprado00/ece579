@@ -1,9 +1,9 @@
 
+import 'package:demo_firebase_login/screens/util_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-//import 'package:demo_firebase_login/screens/description.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,11 +48,11 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
       ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SafeArea(
-        child: ListView(
-          children: [
-            Form(
-              key:formKey,
-              child: Padding(
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                 child: Text(
                   'We need some extra information, so we can contact you!',
@@ -65,159 +65,149 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 50),
-              child: Lottie.asset(
-                'assets/lottie_animations/contact_info.json',
-                width: 100,
-                height: 150,
-                fit: BoxFit.contain,
-                repeat: false,
-                animate: true,
-              ),
-            ),
-
-            getRoundedIcon(icon: Icons.alternate_email),
-
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
-              child: TextFormField(
-                onChanged: (_) => setState(() {}),
-                controller: textController1,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Email Address',
-                  hintStyle: myHintStyle,
-                  enabledBorder: myUnderlineInputBorderForTextField,
-                  focusedBorder: myUnderlineInputBorderForTextField,
-                  suffixIcon: textController1.text.isNotEmpty
-                      ? InkWell(
-                    onTap: () =>
-                        setState(
-                              () => textController1.clear(),
-                        ),
-                    child: const Icon(
-                      Icons.clear,
-                      color: Colors.black,
-                      size: 22,
-                    ),
-                  )
-                      : null,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 50, 0, 50),
+                child: Lottie.asset(
+                  'assets/lottie_animations/contact_info.json',
+                  width: 100,
+                  height: 150,
+                  fit: BoxFit.contain,
+                  repeat: false,
+                  animate: true,
                 ),
-                style: myTextFieldStyle,
-                textAlign: TextAlign.start,
-                keyboardType: TextInputType.emailAddress,
-                validator: (val) {
-                  if (val!.isEmpty || val==null) {
-                    return 'Field is required';
-                  }
-
-                  return null;
-                },
               ),
-            ),
 
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-              child: getRoundedIcon(icon: Icons.phone_android),
-            ),
+              getRoundedIcon(icon: Icons.alternate_email),
 
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
-                  padding:
-                  const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                  child: DropdownButton(
-                    value: dropDownValue,
-                    items: <String>['(Spain) +34',
-                      '(US) +1',
-                      '(France) +33']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropDownValue = newValue!;
-                      });
-                    },
-                    icon: const Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    elevation: 16,
-                    style: myDropDownButtonStyle,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
+                child: TextFormField(
+                  onChanged: (_) => setState(() {}),
+                  controller: textController1,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Email Address',
+                    hintStyle: myHintStyle,
+                    enabledBorder: myUnderlineInputBorderForTextField,
+                    focusedBorder: myUnderlineInputBorderForTextField,
+                    suffixIcon: textController1.text.isNotEmpty
+                        ? InkWell(
+                      onTap: () =>
+                          setState(
+                                () => textController1.clear(),
+                          ),
+                      child: const Icon(
+                        Icons.clear,
+                        color: Colors.black,
+                        size: 22,
+                      ),
+                    )
+                        : null,
                   ),
-
+                  style: myTextFieldStyle,
+                  textAlign: TextAlign.start,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: validatorForEmail,
                 ),
-                Expanded(
-                  child: Padding(
+              ),
+
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                child: getRoundedIcon(icon: Icons.phone_android),
+              ),
+
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
                     padding:
                     const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                    child: TextFormField(
-                      onChanged: (_) => setState(() {}),
-                      controller: textController2,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Phone Number',
-                        hintStyle: myHintStyle,
-                        enabledBorder: myUnderlineInputBorderForTextField,
-                        focusedBorder: myUnderlineInputBorderForTextField,
-                        suffixIcon: textController2.text.isNotEmpty
-                            ? InkWell(
-                          onTap: () =>
-                              setState(
-                                    () => textController2.clear(),
-                              ),
-                          child: const Icon(
-                            Icons.clear,
-                            color: Colors.black,
-                            size: 22,
-                          ),
-                        )
-                            : null,
-                      ),
-                      style: myTextFieldStyle,
-                      textAlign: TextAlign.start,
-                      keyboardType: TextInputType.phone,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Field is required';
-                        }
+                    child: DropdownButton(
+                      value: dropDownValue,
+                      items: <String>['(Spain) +34',
+                        '(US) +1',
+                        '(France) +33']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
 
-                        return null;
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropDownValue = newValue!;
+                        });
                       },
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: myDropDownButtonStyle,
                     ),
+
                   ),
-                )
-              ],
-            ),
+                  Expanded(
+                    child: Padding(
+                      padding:
+                      const EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      child: TextFormField(
+                        onChanged: (_) => setState(() {}),
+                        controller: textController2,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          hintText: 'Phone Number',
+                          hintStyle: myHintStyle,
+                          enabledBorder: myUnderlineInputBorderForTextField,
+                          focusedBorder: myUnderlineInputBorderForTextField,
+                          suffixIcon: textController2.text.isNotEmpty
+                              ? InkWell(
+                            onTap: () =>
+                                setState(
+                                      () => textController2.clear(),
+                                ),
+                            child: const Icon(
+                              Icons.clear,
+                              color: Colors.black,
+                              size: 22,
+                            ),
+                          )
+                              : null,
+                        ),
+                        style: myTextFieldStyle,
+                        textAlign: TextAlign.start,
+                        keyboardType: TextInputType.phone,
+                        validator: validatorForPhone,
 
 
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(140, 50, 140, 30),
-
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    updateContactInfo();
-                  }
-                },
-                icon: const Icon(
-                  Icons.navigate_next,
-                  size: 15,
-                  color: Colors.black,
-                ),
-                style: myButtonStyle,
-
-                label:
-                Text('Next', style: labelStyleForButton),
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
-          ],
+
+
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(140, 50, 140, 30),
+
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      updateContactInfo();
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.navigate_next,
+                    size: 15,
+                    color: Colors.black,
+                  ),
+                  style: myButtonStyle,
+
+                  label:
+                  Text('Next', style: labelStyleForButton),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -228,7 +218,7 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     sp.setString('emailExpert', textController1.text);
-    sp.setInt('phoneNumberPrefix', phonePrefixToInt());
+    sp.setInt('phoneNumberPrefix', phonePrefixToInt(dropDownValue));
     sp.setString('phoneNumber', textController2.text);
 
     //Clear text fields
@@ -247,16 +237,5 @@ class _ContactInfoPageState extends State<ContactInfoPage> {
         child: DecriptionPage(),
       ),
     );
-  }
-
-  int phonePrefixToInt(){
-    String prefixString=dropDownValue;
-    int indexOfPlus= prefixString.indexOf('+', 0);
-
-    //Update preficString to get only number
-
-    prefixString= prefixString.substring(indexOfPlus+1);
-
-    return int.parse(prefixString);
   }
 }

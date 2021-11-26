@@ -1,5 +1,5 @@
-import 'package:demo_firebase_login/screens/profile_expert.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/profile.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -38,7 +38,7 @@ class _HomeExpertState extends State<HomeExpert> {
                   type: PageTransitionType.rightToLeft,
                   duration: const Duration(milliseconds: 300),
                   reverseDuration: const Duration(milliseconds: 300),
-                  child: EditProfileExpert(),
+                  child: EditProfile(),
                 ),
               );
             },

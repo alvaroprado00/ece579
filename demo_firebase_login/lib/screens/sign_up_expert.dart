@@ -3,7 +3,7 @@ import 'package:demo_firebase_login/screens/contact_info_expert.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,12 +51,12 @@ class _SignUpExpertState extends State<SignUpExpert> {
               children: [
 
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 20, 0, 30),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 100),
                   child: Lottie.asset(
                     'assets/lottie_animations/sing_in_expert.json',
-                    width: 190,
+                    width: 220,
                     height: 150,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                     repeat: false,
                     animate: true,
                   ),

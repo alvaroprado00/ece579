@@ -1,10 +1,11 @@
 import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/model/user_custom.dart';
 import 'package:demo_firebase_login/screens/login_page.dart';
+import 'package:demo_firebase_login/screens/util_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'main.dart';
@@ -79,7 +80,7 @@ class _UserEmailPageState extends State<UserEmailPage> {
                     ),
                     textAlign: TextAlign.start,
                     keyboardType: TextInputType.emailAddress,
-                    validator: validatorForNotEmpty)
+                    validator: validatorForEmail)
                 ),
                 SizedBox(
                   width: 130,

@@ -1,9 +1,10 @@
 import 'package:demo_firebase_login/screens/login_page.dart';
+import 'package:demo_firebase_login/screens/util_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:demo_firebase_login/screens/user_email.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

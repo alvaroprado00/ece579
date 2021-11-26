@@ -56,14 +56,21 @@ class ApplicationState extends ChangeNotifier {
 
   Future<bool> init() async {
     await Firebase.initializeApp();
+    //Listen to changes in Auth DB
     FirebaseAuth.instance.userChanges().listen((user) async {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
         userId = user.uid;
+
+        // I need to initialize both of them
+
         await updatedUser();
+        await updatedExpert();
         await isUser(uid: user.uid).then((a) {
           if (a == true) {
             typeOfUser = TypeOfUser.user;
+          }else{
+            typeOfUser= TypeOfUser.expert;
           }
         });
       } else {
@@ -74,6 +81,7 @@ class ApplicationState extends ChangeNotifier {
     return true;
   }
 
+  //Listen To changes in users collection
   Future<void> updatedUser() async {
     FirebaseFirestore.instance
         .collection(userCollectionName)
@@ -83,6 +91,19 @@ class ApplicationState extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  //Listen To changes in Expert collection
+  Future<void> updatedExpert() async {
+    FirebaseFirestore.instance
+        .collection(expertCollectionName)
+        .doc(userId)
+        .snapshots()
+        .listen((val) async {
+      notifyListeners();
+    });
+  }
+
+
 }
 
 class HomePage extends StatelessWidget {

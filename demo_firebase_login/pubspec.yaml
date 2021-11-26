@@ -47,6 +47,7 @@ dependencies:
   firebase_storage:
   firebase_analytics: ^5.0.6
   splashscreen:
+  email_validator:
 
 
 dev_dependencies:

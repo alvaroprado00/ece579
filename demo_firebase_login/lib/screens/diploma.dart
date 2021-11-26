@@ -1,10 +1,10 @@
-import 'dart:ffi';
 import 'dart:io';
+import 'dart:math';
 
-import 'package:demo_firebase_login/controller/diploma_dao.dart';
 import 'package:demo_firebase_login/controller/expert_dao.dart';
 import 'package:demo_firebase_login/model/expert.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/main.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,7 +84,12 @@ class DiplomaPageState extends State{
               ElevatedButton.icon(
                 onPressed: (){ 
                   if(this.imageFile!=null){
-                    createExpert();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Creating Expert', style: myMessageStyle,),backgroundColor: Color(0xFF94F9E1),),
+                    );
+                    createExpert().then((value){
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const HomePage(),));
+                    });
                   }else{
                     showErrorDialog(context);
                   }
@@ -153,7 +158,7 @@ class DiplomaPageState extends State{
     );
   }
 
-  void createExpert() async {
+  Future<String> createExpert() async {
     //I need to create an object Expert retrieving all the info from sharedPreferences
 
     SharedPreferences sp= await SharedPreferences.getInstance();
@@ -171,13 +176,14 @@ class DiplomaPageState extends State{
 
       //Obtain enum value from String
 
-      Expertise exp = Expertise.values.firstWhere((e) => e.toString() == 'Expertise.' + expertiseAsString);
+      Expertise exp= Expert.expertiseFromString(expertiseAsString);
 
-      addExpert( e: Expert(userName:userName, email:email, phoneNumber: phoneNumber, phoneNumberPrefix: phoneNumberPrefix, expertise: exp,description: description,diplomaUrl: imageUrl ),
+      return addExpert( e: Expert(userName:userName, email:email, phoneNumber: phoneNumber, phoneNumberPrefix: phoneNumberPrefix, expertise: exp,description: description,diplomaUrl: imageUrl ),
       password: password);
 
     }catch(e) {
-      print("Error when getting experts info from Shared Preferences");
+      return "Error when getting experts info from Shared Preferences";
+
     }
 
 

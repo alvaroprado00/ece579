@@ -50,13 +50,10 @@ class _AvatarState extends State<Avatar> {
     return Container(
       width: widget.size,
       height: widget.size,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color:  Colors.black,
-            width: 3.0,
-          ),
-          gradient: const LinearGradient(
+
+          gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [

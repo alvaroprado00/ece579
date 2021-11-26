@@ -1,10 +1,11 @@
 import 'package:demo_firebase_login/screens/sign_up_expert.dart';
+import 'package:demo_firebase_login/screens/util_logic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:demo_firebase_login/screens/sign_up_user.dart';
-import 'package:demo_firebase_login/screens/util.dart';
+import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'main.dart';
@@ -157,30 +158,7 @@ class _LogInPageState extends State<LogInPage> {
 
 }
 
-String? validatorForNotEmpty(String? val){
-  if (val==null|| val.isEmpty) {
-    return 'Field is required';
 
-
-  }else{
-    return null;
-  }
-
-}
-
-String? validatorForPassword(String? val){
-
-  if (val==null|| val.isEmpty) {
-    return 'Field is required';
-
-  }
-  if(val.length<6){
-    return 'Password should have 6 characters';
-  }else{
-    return null;
-  }
-
-}
 Future<bool> signInWithEmailAndPassword(
     String email,
     String password,
@@ -198,32 +176,3 @@ Future<bool> signInWithEmailAndPassword(
   }
 }
 
-//Function to show an alert dialog when user tries to log in with wrong credentials
-
-showAlertDialog({required BuildContext context, required String error} ) {
-  // set up the button
-  Widget okButton = TextButton(
-    child: Text("OK"),
-    onPressed: () {
-      Navigator.pop(context);
-
-    },
-  );
-
-  // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text("Something went wrong"),
-    content: Text(error.substring(error.indexOf(']')+1)),
-    actions: [
-      okButton,
-    ],
-  );
-
-  // show the dialog
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
