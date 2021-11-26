@@ -1,6 +1,6 @@
-# demo_firebase_login
+# Mentalthy
 
-A new Flutter project.
+Project for the course Mobile Computing ECE 579 in the UM
 
 ## Getting Started
 
