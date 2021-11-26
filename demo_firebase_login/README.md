@@ -1,6 +1,7 @@
 # Mentalthy
 
 Project for the course Mobile Computing ECE 579 in the UM
+Authors: Louis Notteghem and Alvaro Prado
 
 ## Getting Started
 
