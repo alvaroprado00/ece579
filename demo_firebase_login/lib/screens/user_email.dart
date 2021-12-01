@@ -162,7 +162,6 @@ Future<void> createUser({required String email}) async {
   try {
     UserCustom uc =
         UserCustom(userName: sp.getString('userName') ?? '', email: email);
-
     String password = sp.getString('password') ?? '';
 
     if (uc.userName != '' && password != '') {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_firebase_login/config/config_data.dart';
 import 'package:demo_firebase_login/model/user_custom.dart';
+import 'package:demo_firebase_login/model/user_report.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'auth_dao.dart';
@@ -109,4 +110,28 @@ Future<String> updateEmailForUser({required String value}) {
   }).catchError((error) {
     return "Failed to update user in firestore";
   });
+}
+
+/**
+Future<void> createUserReport({required UserReport report}) {
+  FirebaseFirestore.instance.collection(reportsCollectionName);
+  return reports.set({
+    'title' : report.title,
+    'category' : report.category,
+    'description' : report.description
+  })
+  });
+}
+**/
+Future<void> createUserReport({
+  required UserReport ur
+}) async{
+  CollectionReference reports = FirebaseFirestore.instance.collection('reports');
+  return reports.add({
+    'title' : ur.title,
+    'category' : ur.category,
+    'description' : ur.description,
+  })
+      .then((value) => print("report created"))
+      .catchError((error) => print("Failed to create the report: $error"));
 }

@@ -1,3 +1,4 @@
+import 'package:demo_firebase_login/screens/create_report.dart';
 import 'package:demo_firebase_login/screens/profile.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:page_transition/page_transition.dart';
 
 
 class HomeUser extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +59,14 @@ class HomeUser extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 15),
                 child: ElevatedButton(
                   onPressed: () {
-                   print('poo poo');
+                    Navigator.push(context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: const Duration(milliseconds: 300),
+                        reverseDuration: const Duration(milliseconds: 300),
+                        child: CreateReportUser(),
+                      ),
+                    );;
                   },
 
                   style: myButtonStyle,
@@ -71,7 +78,6 @@ class HomeUser extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                      print('poo poo');
-
                 },
                 style: myButtonStyle,
                 child:
