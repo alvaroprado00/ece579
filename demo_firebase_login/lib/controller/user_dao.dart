@@ -123,9 +123,7 @@ Future<void> createUserReport({required UserReport report}) {
   });
 }
 **/
-Future<void> createUserReport({
-  required UserReport ur
-}) async{
+Future<void> createUserReport({ required UserReport ur }) async{
   CollectionReference reports = FirebaseFirestore.instance.collection('reports');
   return reports.add({
     'title' : ur.title,
@@ -135,3 +133,4 @@ Future<void> createUserReport({
       .then((value) => print("report created"))
       .catchError((error) => print("Failed to create the report: $error"));
 }
+

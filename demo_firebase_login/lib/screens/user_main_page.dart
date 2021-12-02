@@ -1,5 +1,6 @@
 import 'package:demo_firebase_login/screens/create_report.dart';
 import 'package:demo_firebase_login/screens/profile.dart';
+import 'package:demo_firebase_login/screens/user_report_list.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -77,7 +78,14 @@ class HomeUser extends StatelessWidget {
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                     print('poo poo');
+                  Navigator.push(context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: const Duration(milliseconds: 300),
+                      reverseDuration: const Duration(milliseconds: 300),
+                      child: ViewReportUser(),
+                    ),
+                  );;
                 },
                 style: myButtonStyle,
                 child:
