@@ -31,12 +31,8 @@ class _ViewReportUserState extends State<ViewReportUser> {
           decoration: const BoxDecoration(
             color: Color(0x00ffffff),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GetReportList(userId),
-            ],
+          child: ListView(
+            children: [GetReportList(userId),]
           ),
         ),
       ),
@@ -49,4 +45,9 @@ getUserDoc() {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user = _auth.currentUser!;
   return user;
-}*/
+
+  in the column add
+  mainAxisSize: MainAxisSize.max,
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+ */
+

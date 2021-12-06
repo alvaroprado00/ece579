@@ -48,6 +48,7 @@ dependencies:
   firebase_analytics: ^5.0.6
   splashscreen:
   email_validator:
+  auto_size_text: ^3.0.0
 
 
 dev_dependencies:

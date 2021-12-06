@@ -1,4 +1,5 @@
 import 'package:demo_firebase_login/model/user_report.dart';
+import 'package:demo_firebase_login/screens/view_reportx_user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
@@ -27,9 +28,10 @@ class GetReportList extends StatelessWidget{
             return Text("No reports found");
           }
           else {
-            return ListView(
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
+            return Column(
+              // listview
+                //shrinkWrap: true,
+                //scrollDirection: Axis.vertical,
                 children: documents.map((doc) =>
                     Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -65,8 +67,6 @@ class GetReportList extends StatelessWidget{
                                       ),
                                       IconButton(
                                           onPressed: () {
-                                            print("poo poo");
-                                            /**
                                                 Navigator.push(
                                                 context,
                                                 PageTransition(
@@ -75,7 +75,7 @@ class GetReportList extends StatelessWidget{
                                                 reverseDuration:const Duration(milliseconds: 300),
                                                 child: ViewReportUserX(),
                                                 ),
-                                                );**/
+                                                );
                                           },
                                           icon:
                                           Icon(Icons.arrow_forward))
