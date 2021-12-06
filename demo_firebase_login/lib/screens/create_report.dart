@@ -20,8 +20,8 @@ class _CreateReportUserState extends State<CreateReportUser> {
   late TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
 
-
-
+ /* TODO CHECK WHY PARAM IN DB NOT GOOD ORDER */
+  
   @override
   void initState() {
     super.initState();
@@ -162,9 +162,11 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                   style: myMessageStyle,), backgroundColor: Color(0xFF94F9E1),),
                               );
                               createReport(title: textController1.text,
-                                  category: textController2.text,
-                                  description: dropDownValue)
-                                  .then((value) => Navigator.pop(context)); // NEED TO CLEAR STATE WEN VALIDATED
+                                  category: dropDownValue,
+                                  description: textController2.text,
+                                  uid : FirebaseAuth.instance.currentUser!.uid,
+                              )
+                                  .then((value) => Navigator.pop(context)); // NEED TO CLEAR STATE WEN VALIDATED **/
                             }
                           },
                           icon:const Icon(
@@ -189,14 +191,16 @@ class _CreateReportUserState extends State<CreateReportUser> {
   }
 }
 
+
 Future<void> createReport({
   required String title,
   required String category,
-  required String description
+  required String description,
+  required String uid,
 }) async{
   try{
-    UserReport ur = UserReport(title: title, category: category,description: description);
-    if(ur.title != '' && ur.category !='' && ur.description != ''){
+    UserReport ur = UserReport(title: title, category: category,description: description,uId: uid);
+    if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''){
       return createUserReport(ur: ur);
     } else {
       print('Cannot create report because 1 field is missing');

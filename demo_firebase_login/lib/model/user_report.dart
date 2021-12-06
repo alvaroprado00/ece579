@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 
 class UserReport {
   // to create the report from the user
-  // String uId; need to get user ID
+  String uId; //need to get user ID
   String title;
   String category;
   String description;
 
   UserReport(
-      {required this.title, required this.category, required this.description}
+      {required this.title, required this.category, required this.description, required this.uId}
       );
 
   // When we call the database we create the user with this builder from the json
@@ -23,6 +23,7 @@ class UserReport {
       title: json['title'],
       category: json['category'],
       description: json['description'],
+      uId: json['uId'],
     );
   }
 }

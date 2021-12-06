@@ -112,23 +112,14 @@ Future<String> updateEmailForUser({required String value}) {
   });
 }
 
-/**
-Future<void> createUserReport({required UserReport report}) {
-  FirebaseFirestore.instance.collection(reportsCollectionName);
-  return reports.set({
-    'title' : report.title,
-    'category' : report.category,
-    'description' : report.description
-  })
-  });
-}
-**/
+// add the report into the firebase
 Future<void> createUserReport({ required UserReport ur }) async{
   CollectionReference reports = FirebaseFirestore.instance.collection('reports');
   return reports.add({
     'title' : ur.title,
     'category' : ur.category,
     'description' : ur.description,
+    'uid' : ur.uId
   })
       .then((value) => print("report created"))
       .catchError((error) => print("Failed to create the report: $error"));

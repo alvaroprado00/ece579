@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class ViewReportUser extends StatefulWidget {
@@ -16,6 +16,7 @@ class ViewReportUser extends StatefulWidget {
 
 class _ViewReportUserState extends State<ViewReportUser> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +28,14 @@ class _ViewReportUserState extends State<ViewReportUser> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFFF),
+          decoration: const BoxDecoration(
+            color: Color(0x00ffffff),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GetReportList("4bGf5qZaapTGbCavMe3U"),
+              GetReportList(userId),
             ],
           ),
         ),
@@ -43,4 +44,9 @@ class _ViewReportUserState extends State<ViewReportUser> {
   }
 }
 
-// function to fetch report in firestore
+/*
+getUserDoc() {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  User user = _auth.currentUser!;
+  return user;
+}*/

@@ -7,91 +7,177 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class GetReportList extends StatelessWidget{
-    final String uId;
-    GetReportList(this.uId);
+    final String uid;
+    GetReportList(this.uid);
+    CollectionReference userReports = FirebaseFirestore.instance.collection("reports");
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    CollectionReference reports = FirebaseFirestore.instance.collection('reports');
-    return FutureBuilder<DocumentSnapshot>(
-      future: reports.doc(uId).get(),
+    return FutureBuilder<QuerySnapshot>(
+      future: userReports.where("uid", isEqualTo: uid).get(),
       builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
+          (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if(snapshot.hasError) {
+          return Text("Error fetching reports");
         }
 
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          return Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-          return Card(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            color: const Color(0xFF94F9E1),
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 25),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                        EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                                "title: ${data['title']}",
-                                style: labelStyleForButton
-                            ),
-                            Text(
-                                "category: ${data['category']}",
-                                style: labelStyleForButton
-                            ),
-                            IconButton(
-                                onPressed:(){
-                                  print("poo poo");
-                                  /**
-                                      Navigator.push(
-                                      context,
-                                      PageTransition(
-                                      type: PageTransitionType.rightToLeft,
-                                      duration:const Duration(milliseconds: 300),
-                                      reverseDuration:const Duration(milliseconds: 300),
-                                      child: ViewReportUserX(),
+        if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+          final List<DocumentSnapshot> documents = snapshot.data!.docs;
+          if(snapshot.hasData && documents.length==0) {
+            return Text("No reports found");
+          }
+          else {
+            return ListView(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                children: documents.map((doc) =>
+                    Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: const Color(0xFF94F9E1),
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 25),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceBetween,
+                                    children: [
+                                      Text(doc['title'],
+                                          //"title: ${data['title']}",
+                                          style: labelStyleForButton
                                       ),
-                                      );**/
-                                },
-                                icon:
-                                Icon(Icons.arrow_forward))
-                          ],
-                        ),
+                                      Text(
+                                          doc['category'],
+                                          //"category: ${data['category']}",
+                                          style: myHintStyle
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            print("poo poo");
+                                            /**
+                                                Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                type: PageTransitionType.rightToLeft,
+                                                duration:const Duration(milliseconds: 300),
+                                                reverseDuration:const Duration(milliseconds: 300),
+                                                child: ViewReportUserX(),
+                                                ),
+                                                );**/
+                                          },
+                                          icon:
+                                          Icon(Icons.arrow_forward))
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 8, 0, 0),
+                                  child: Text(
+                                    doc['description'],
+                                    //"description: ${data['description']}",
+                                    style: myTextFieldStyle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                        child: Text("description: ${data['description']}",
-                          style: myTextFieldStyle,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
+                    ),).toList()
+            );
+          }
+        }else{
+          return Text("loading reports for ${uid}");
         }
-        return Text("loading");
       },
     );
   }
 }
+
+/**
+    print("${FirebaseFirestore.instance.collection('reports').where('uid', isEqualTo: uid)
+    .get().
+    then((QuerySnapshot querySnapshot){
+    querySnapshot.docs.forEach((doc) {
+    print(doc['category']);
+    });
+    })}");
+
+
+
+    Card(
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    color: const Color(0xFF94F9E1),
+    elevation: 3,
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(20),
+    ),
+    child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+    Padding(
+    padding: EdgeInsetsDirectional.fromSTEB(15, 15, 15, 25),
+    child: Column(
+    mainAxisSize: MainAxisSize.max,
+    children: [
+    Padding(
+    padding:
+    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+    child: Row(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+    Text(doc['title'],
+    //"title: ${data['title']}",
+    style: labelStyleForButton
+    ),
+    Text(
+    doc['category'],//"category: ${data['category']}",
+    style: labelStyleForButton
+    ),
+    IconButton(
+    onPressed:(){
+    print("poo poo");
+    /**
+    Navigator.push(
+    context,
+    PageTransition(
+    type: PageTransitionType.rightToLeft,
+    duration:const Duration(milliseconds: 300),
+    reverseDuration:const Duration(milliseconds: 300),
+    child: ViewReportUserX(),
+    ),
+    );**/
+    },
+    icon:
+    Icon(Icons.arrow_forward))
+    ],
+    ),
+    ),
+    Padding(
+    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+    child: Text(
+    doc['description'],//"description: ${data['description']}",
+    style: myTextFieldStyle,
+    ),
+    ),
+    ],
+    ),
+    )
+    ],
+    ),
+    ),).toList()
+ **/
