@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:demo_firebase_login/model/user_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
@@ -6,6 +8,7 @@ import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/screens/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:demo_firebase_login/model/message_chat.dart';
 
 class CreateReportUser extends StatefulWidget {
   //CreateReportUserWidget({Key key}) : super(key: key);
@@ -20,7 +23,6 @@ class _CreateReportUserState extends State<CreateReportUser> {
   late TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
 
- /* TODO CHECK WHY PARAM IN DB NOT GOOD ORDER */
   
   @override
   void initState() {
@@ -166,7 +168,11 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                   description: textController2.text,
                                   uid : FirebaseAuth.instance.currentUser!.uid,
                               )
-                                  .then((value) => Navigator.pop(context)); // NEED TO CLEAR STATE WEN VALIDATED **/
+                                  .then((value) => CreateChatLinkToReport(uID: FirebaseAuth.instance.currentUser!.uid,
+                                  reportID: 'test',
+                                  chatMessages: [])
+                              .then((value) => Navigator.pop(context)));
+                              //.then((value) => Navigator.pop(context));
                             }
                           },
                           icon:const Icon(
@@ -207,5 +213,23 @@ Future<void> createReport({
     }
   } catch (e) {
     print("Error when reading data");
+  }
+}
+
+
+Future<void> CreateChatLinkToReport({
+  required String uID,
+  required String reportID,
+  required List<String> chatMessages,
+}) async {
+  try {
+    MessageChat chat = MessageChat(UserID: uID, ReportID: reportID, Chat: chatMessages);
+    if(chat.ReportID != '' && chat.UserID != ''){
+      return createChatLinkedToReport(chat: chat);
+    } else {
+      print('some information are missing contact admin');
+    }
+  } catch (e) {
+    print("Unknown error when initializing chat");
   }
 }

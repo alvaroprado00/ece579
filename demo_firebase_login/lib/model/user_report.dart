@@ -5,6 +5,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
+enum Category{
+  childAbuse,
+  violence,
+  other,
+}
+
 class UserReport {
   // to create the report from the user
   String uId; //need to get user ID

@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class ViewReportUserX extends StatefulWidget {
   //ViewReportUserXWidget({Key key}) : super(key: key);
@@ -12,20 +14,35 @@ class ViewReportUserX extends StatefulWidget {
 
 class _ViewReportUserXState extends State<ViewReportUserX> {
   late TextEditingController textController;
-  bool _loadingButton = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String _title = "";
+  String _category = "";
+  String _description = "";
+  String _reportID = "";
+
+  _loadVariablesSP() async{
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      _title = (sp.getString('title') ?? 'Title not found');
+      _description = (sp.getString('description') ?? 'Description not found');
+      _category = (sp.getString('category') ?? 'category not found');
+      _reportID = (sp.getString('reportID') ?? 'error');
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     textController = TextEditingController();
+    _loadVariablesSP();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: getCustomAppBar(text: ("Report list")),
+      appBar: getCustomAppBar(text:_title),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
@@ -70,24 +87,19 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.end,
                                         children: [
-                                          Text(
-                                            'Report 2 title',
-                                            style: myTextFieldStyle,
-                                          ),
                                           Text(
                                             'Date created',
                                             style: myTextFieldStyle,
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 8, 0, 0),
-                                      child: Text(
-                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.',
+                                      child: Text('${_description}',
                                         style: myTextFieldStyle,
                                       ),
                                     )
@@ -99,78 +111,9 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AutoSizeText(
-                                      '------- New reply from expert -------',
-                                      textAlign: TextAlign.center,
-                                      style: myTextFieldStyle,
-                                    ),
-                                    Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: Color(0xFFF88E2B),
-                                      elevation: 3,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                15, 15, 15, 25),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 10, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                    MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      AutoSizeText(
-                                                          'Report 2 answer title',
-                                                          style: myTextFieldStyle
-                                                      ),
-                                                      Text(
-                                                          'Date answered',
-                                                          style: myTextFieldStyle
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 8, 0, 0),
-                                                  child: Text(
-                                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.',
-                                                      style: myTextFieldStyle
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
                         ),
+
+                        // Below we will add a tile for each message sent
                         Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           color: Colors.white,
@@ -188,20 +131,6 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Align(
-                                          alignment:
-                                          AlignmentDirectional(-0.05, 0),
-                                          child: AutoSizeText(
-                                              'Report 2 title',
-                                              textAlign: TextAlign.start,
-                                              style: myTextFieldStyle
-                                          ),
-                                        )
-                                      ],
-                                    ),
                                     TextFormField(
                                       controller: textController,
                                       obscureText: false,
@@ -231,7 +160,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                       ),
                                       style: myTextFieldStyle,
                                       textAlign: TextAlign.justify,
-                                      maxLines: 14,
+                                      maxLines: 5,
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -252,7 +181,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         )

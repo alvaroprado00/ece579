@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_firebase_login/config/config_data.dart';
+import 'package:demo_firebase_login/model/message_chat.dart';
 import 'package:demo_firebase_login/model/user_custom.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -125,3 +126,14 @@ Future<void> createUserReport({ required UserReport ur }) async{
       .catchError((error) => print("Failed to create the report: $error"));
 }
 
+Future<void> createChatLinkedToReport({ required MessageChat chat}) async {
+  CollectionReference chats = FirebaseFirestore.instance.collection('chats');
+  return chats.add({
+    'uid' : chat.UserID,
+    'reportID' : chat.ReportID,
+    'chat' : chat.Chat,
+  })
+      .then((value) => print("chat created"))
+      .catchError((error) => ("Chat could not be created see error $error"));
+}
+/* TODO get the correct IDREPORT */
