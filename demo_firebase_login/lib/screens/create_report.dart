@@ -166,7 +166,7 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                   category: dropDownValue,
                                   description: textController2.text,
                                   uid : FirebaseAuth.instance.currentUser!.uid,
-                                  chat: [],
+                                  chat: ['start of conversation with expert'],
                               )
                               .then((value) => Navigator.pop(context));
                             }
@@ -203,7 +203,7 @@ Future<void> createReport({
 }) async{
   try{
     UserReport ur = UserReport(title: title, category: category,description: description,uId: uid,chat: chat);
-    if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''&& chat.isEmpty){
+    if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''&& chat.length==1){
       return createUserReport(ur: ur);
     } else {
       print('Cannot create report because 1 field is missing');

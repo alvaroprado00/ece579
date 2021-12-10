@@ -67,22 +67,23 @@ class DiplomaPageState extends State{
       ),
 
       body: Center(
-        child: Container(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Card(
                 child:( imageFile==null)?Text("Upload a photo of your diploma"): Image.file( File(  imageFile!.path)),
               ),
-              
+
               ElevatedButton(
                 onPressed: (){ _showChoiceDialog(context);},
                 style: myButtonStyle,
                 child:  Text("Select Image", style: labelStyleForButton,),
               ),
-              
+
               ElevatedButton.icon(
-                onPressed: (){ 
+                onPressed: (){
                   if(this.imageFile!=null){
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Creating Expert', style: myMessageStyle,),backgroundColor: Color(0xFF94F9E1),),
@@ -98,8 +99,6 @@ class DiplomaPageState extends State{
                 icon: const Icon(Icons.done, color: Colors.black,),
                 label: Text("Done", style: labelStyleForButton,),
               )
-
-
 
             ],
           ),

@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GetMessageList extends StatelessWidget {
   final String reportID;
+  List<String> messageList = [];
+
 
   GetMessageList(this.reportID);
   @override
@@ -25,10 +27,33 @@ class GetMessageList extends StatelessWidget {
       if(snapshot.hasData && !snapshot.data!.exists){
         return Text("No message found check back later");
       }
-      else {
+      if(snapshot.connectionState == ConnectionState.done) {
         Map<String, dynamic> data = snapshot.data!.data() as Map<String,dynamic>;
-        return Text("to fix but cba ${data['chat']}");
+        int len = data['chat'].toString().split(",").length;
+        data['chat'][0];
+        for(int i=0;i<len;i++){
+          messageList.add(data['chat'][i]);
+        }
+        print(messageList.length);
+        //messageList
+        return SafeArea(
+          child: ListView.separated(
+            padding: const EdgeInsets.only(left:10,right: 10),
+            separatorBuilder: (BuildContext context, int index) => const Divider(thickness:2,color: Colors.black,),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: messageList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                height: 20,
+                color: Colors.tealAccent,
+                child: Text('${messageList[index]}'),
+              );
+            },
+          ),
+        );
       }
+      return Text("Loading...");
   },
     );
   }
