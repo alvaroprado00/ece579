@@ -1,9 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:demo_firebase_login/components/message_card.dart';
 
 class ViewReportUserX extends StatefulWidget {
   //ViewReportUserXWidget({Key key}) : super(key: key);
@@ -112,8 +113,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         ),
-
-                        // Below we will add a tile for each message sent
+                        GetMessageList(_reportID), // HERE WE DISPLAY MSG
+                        // BELLOW IS THE INPUT TEXT CARD
                         Card(
                           clipBehavior: Clip.antiAliasWithSaveLayer,
                           color: Colors.white,
@@ -167,7 +168,16 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                           0, 15, 0, 0),
                                       child: ElevatedButton.icon(
                                         onPressed:(){
-                                          print("click");
+                                          if(textController.text!='') {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Sending message...', style: myMessageStyle,),backgroundColor: Color(0xFF94F9E1))
+                                            );
+                                          }
+                                            sendMessage(
+                                                message: textController.text,
+                                                reportID: _reportID);
+                                            textController.clear();
+
                                         },
                                         icon:const Icon(
                                           Icons.navigate_next,
@@ -195,5 +205,19 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
         ),
       ),
     );
+  }
+}
+
+Future<void> sendMessage({required String message, required String reportID}) async{
+  List<String> messageToSend = [];
+  messageToSend.add(message);
+  SharedPreferences sp = await SharedPreferences.getInstance();
+  String _reportID = (sp.getString('reportID') ?? 'error');
+  try{
+    if(message!=''&& reportID == _reportID){
+      sendMessageFirestore(message: messageToSend, reportID: reportID);
+    }
+  } catch (e){
+    print("error sending msg");
   }
 }

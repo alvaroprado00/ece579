@@ -15,7 +15,6 @@ class GetReportList extends StatelessWidget{
     GetReportList(this.uid);
     final userReports = FirebaseFirestore.instance.collection("reports");
 
-
     @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(

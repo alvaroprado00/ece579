@@ -8,7 +8,6 @@ import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/screens/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:demo_firebase_login/model/message_chat.dart';
 
 class CreateReportUser extends StatefulWidget {
   //CreateReportUserWidget({Key key}) : super(key: key);
@@ -167,12 +166,9 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                   category: dropDownValue,
                                   description: textController2.text,
                                   uid : FirebaseAuth.instance.currentUser!.uid,
+                                  chat: [],
                               )
-                                  .then((value) => CreateChatLinkToReport(uID: FirebaseAuth.instance.currentUser!.uid,
-                                  reportID: 'test',
-                                  chatMessages: [])
-                              .then((value) => Navigator.pop(context)));
-                              //.then((value) => Navigator.pop(context));
+                              .then((value) => Navigator.pop(context));
                             }
                           },
                           icon:const Icon(
@@ -203,33 +199,16 @@ Future<void> createReport({
   required String category,
   required String description,
   required String uid,
+  required List<String> chat,
 }) async{
   try{
-    UserReport ur = UserReport(title: title, category: category,description: description,uId: uid);
-    if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''){
+    UserReport ur = UserReport(title: title, category: category,description: description,uId: uid,chat: chat);
+    if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''&& chat.isEmpty){
       return createUserReport(ur: ur);
     } else {
       print('Cannot create report because 1 field is missing');
     }
   } catch (e) {
     print("Error when reading data");
-  }
-}
-
-
-Future<void> CreateChatLinkToReport({
-  required String uID,
-  required String reportID,
-  required List<String> chatMessages,
-}) async {
-  try {
-    MessageChat chat = MessageChat(UserID: uID, ReportID: reportID, Chat: chatMessages);
-    if(chat.ReportID != '' && chat.UserID != ''){
-      return createChatLinkedToReport(chat: chat);
-    } else {
-      print('some information are missing contact admin');
-    }
-  } catch (e) {
-    print("Unknown error when initializing chat");
   }
 }

@@ -17,9 +17,10 @@ class UserReport {
   String title;
   String category;
   String description;
+  List<String> chat;
 
   UserReport(
-      {required this.title, required this.category, required this.description, required this.uId}
+      {required this.title, required this.category, required this.description, required this.uId, required this.chat}
       );
 
   // When we call the database we create the user with this builder from the json
@@ -30,6 +31,7 @@ class UserReport {
       category: json['category'],
       description: json['description'],
       uId: json['uId'],
+      chat: json['chat'],
     );
   }
 }

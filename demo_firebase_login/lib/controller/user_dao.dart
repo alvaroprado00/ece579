@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo_firebase_login/config/config_data.dart';
-import 'package:demo_firebase_login/model/message_chat.dart';
 import 'package:demo_firebase_login/model/user_custom.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -120,20 +119,16 @@ Future<void> createUserReport({ required UserReport ur }) async{
     'title' : ur.title,
     'category' : ur.category,
     'description' : ur.description,
-    'uid' : ur.uId
+    'uid' : ur.uId,
+    'chat' : ur.chat,
   })
       .then((value) => print("report created"))
       .catchError((error) => print("Failed to create the report: $error"));
 }
 
-Future<void> createChatLinkedToReport({ required MessageChat chat}) async {
-  CollectionReference chats = FirebaseFirestore.instance.collection('chats');
-  return chats.add({
-    'uid' : chat.UserID,
-    'reportID' : chat.ReportID,
-    'chat' : chat.Chat,
-  })
-      .then((value) => print("chat created"))
-      .catchError((error) => ("Chat could not be created see error $error"));
+Future<void> sendMessageFirestore({required List<String> message, required String reportID}) async {
+  CollectionReference reports = FirebaseFirestore.instance.collection('reports');
+  return reports.doc(reportID).update({'chat': FieldValue.arrayUnion(message)})
+      .then((value) => print("message sent"))
+      .catchError((eroor) => print("Message could not be sent try again later"));
 }
-/* TODO get the correct IDREPORT */
