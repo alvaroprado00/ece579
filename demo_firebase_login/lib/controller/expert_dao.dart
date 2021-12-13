@@ -6,7 +6,7 @@ import 'package:demo_firebase_login/model/expert.dart';
 import 'package:demo_firebase_login/screens/util_logic.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<String> addExpert({required Expert e, required String password}) async {
+Future<String> addExpert({required Expert e, required String password,}) async {
   //First we upload the user in Auth DB
 
   try {
@@ -60,7 +60,6 @@ Future<String> addExpertToFireStore(
 
 Future<DocumentSnapshot<Object?>> getActiveExpert({required String uid}) {
   // Call the user's CollectionReference
-
   CollectionReference cr =
       FirebaseFirestore.instance.collection(expertCollectionName);
 

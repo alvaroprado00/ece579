@@ -10,6 +10,15 @@ final myButtonStyle = ButtonStyle(
   ),
 );
 
+final myButtonStyleEmergency = ButtonStyle(
+  backgroundColor: MaterialStateProperty.all<Color>(const Color(0x00ff0000)),
+  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+);
+
 final myButtonAuthoritiesStyle = ButtonStyle(
   backgroundColor: MaterialStateProperty.all<Color>(const Color(000000)),
   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -31,6 +40,7 @@ final labelStyleForButton = GoogleFonts.getFont(
   color: Colors.black,
   fontSize: 20,
 );
+
 
 final myHintStyle = GoogleFonts.getFont(
   'Lato',

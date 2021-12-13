@@ -1,5 +1,4 @@
 import 'package:demo_firebase_login/components/report_card.dart';
-import 'package:demo_firebase_login/components/report_card_expert.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,9 +17,9 @@ class ViewAllReportsExpert extends StatefulWidget {
 }
 
 class _ViewAllReportsExpert extends State<ViewAllReportsExpert> {
+  /* TODO  ADD a filter bar by category */
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String userId = FirebaseAuth.instance.currentUser!.uid;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

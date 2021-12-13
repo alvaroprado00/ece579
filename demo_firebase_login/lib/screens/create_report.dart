@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:demo_firebase_login/model/user_custom.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
@@ -92,8 +91,10 @@ class _CreateReportUserState extends State<CreateReportUser> {
                             DropdownButton<String>(
                               value : dropDownValue.isNotEmpty ? dropDownValue : null,
                               items: <String>[
-                                'Family issue',
-                                'whatever','put more','hot stepmom']
+                                'bullying',
+                                'child abuse',
+                                'suicide',
+                                'nutrition']
                                   .map<DropdownMenuItem<String>>((String value){
                                 return DropdownMenuItem<String>(value: value,
                                   child: Text(value,style: myTextFieldStyle,),
@@ -102,19 +103,19 @@ class _CreateReportUserState extends State<CreateReportUser> {
                               onChanged: (String? value) =>
                                   setState(() => dropDownValue = value!),
                             ),
-                            Padding(
-                              padding:
-                              const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                              child: TextFormField(
+                                Padding(
+                                padding:
+                                const EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: TextFormField(
                                 controller: textController2,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  hintText:
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.\n',
-                                  hintStyle: myHintStyle,
-                                    suffixIcon: textController2.text.isNotEmpty
-                                    ? InkWell(
-                                    onTap: () => setState(
+                                hintText:
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.\n',
+                                hintStyle: myHintStyle,
+                                suffixIcon: textController2.text.isNotEmpty
+                                ? InkWell(
+                                onTap: () => setState(
                                   () => textController2.clear(),
                                     ),
                                     child: const Icon(
@@ -196,13 +197,13 @@ class _CreateReportUserState extends State<CreateReportUser> {
 
 Future<void> createReport({
   required String title,
-  required String category,
   required String description,
+  required String category,
   required String uid,
   required List<String> chat,
 }) async{
   try{
-    UserReport ur = UserReport(title: title, category: category,description: description,uId: uid,chat: chat);
+    UserReport ur = UserReport(title: title, category: category ,description: description,uId: uid,chat: chat);
     if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''&& chat.length==1){
       return createUserReport(ur: ur);
     } else {

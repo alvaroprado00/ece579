@@ -172,13 +172,14 @@ class DiplomaPageState extends State{
       String expertiseAsString= sp.getString('expertise')?? '';
       String description=sp.getString('description')?? '';
       String imageUrl=imageFile!.path;
+      bool isAdmin = true;
 
       //Obtain enum value from String
 
       Expertise exp= Expert.expertiseFromString(expertiseAsString);
 
-      return addExpert( e: Expert(userName:userName, email:email, phoneNumber: phoneNumber, phoneNumberPrefix: phoneNumberPrefix, expertise: exp,description: description,diplomaUrl: imageUrl ),
-      password: password);
+      return addExpert( e: Expert(userName:userName, email:email, phoneNumber: phoneNumber, phoneNumberPrefix: phoneNumberPrefix, expertise: exp,description: description,diplomaUrl: imageUrl,),
+      password: password,);
 
     }catch(e) {
       return "Error when getting experts info from Shared Preferences";

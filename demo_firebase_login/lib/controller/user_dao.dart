@@ -132,3 +132,8 @@ Future<void> sendMessageFirestore({required List<String> message, required Strin
       .then((value) => print("message sent"))
       .catchError((eroor) => print("Message could not be sent try again later"));
 }
+
+/*
+Future<bool> isUserAdmin({required String userId}) async{
+
+}*/
