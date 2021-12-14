@@ -1,3 +1,4 @@
+import 'package:demo_firebase_login/controller/expert_dao.dart';
 import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/screens/main.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
   String _category = "";
   String _description = "";
   String _reportID = "";
+  String _dateCreation ="";
   //late Future<bool> isAdmin;
   late Future<bool> isAdmin;
 
@@ -32,6 +34,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
       _description = (sp.getString('description') ?? 'Description not found');
       _category = (sp.getString('category') ?? 'category not found');
       _reportID = (sp.getString('reportID') ?? 'error');
+      _dateCreation = (sp.getString('creationDate')??'no date found');
     });
   }
 
@@ -56,7 +59,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
           if (snapshot.hasError) {
             return Text("error loading the page please refresh");
           }
-          if(snapshot.hasData && snapshot.data==false /* user is expert*/){
+          if(snapshot.hasData && snapshot.data==false /* user is EXPERT*/){
             return Scaffold(
               key: scaffoldKey,
               appBar: getCustomAppBar(text: _title),
@@ -69,7 +72,6 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text("I'm an expert and I'm gay"),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 1,
@@ -108,7 +110,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                 MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    'Date created',
+                                                    'creation date: ${_dateCreation}',
                                                     style: myTextFieldStyle,
                                                   ),
                                                 ],
@@ -203,7 +205,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                     }
                                                     sendMessage(
                                                         message: textController.text,
-                                                        reportID: _reportID);
+                                                        reportID: _reportID).then((value) =>
+                                                        expertSaveReport(reportID: _reportID,expertID: FirebaseAuth.instance.currentUser!.uid));
                                                     textController.clear();
                                                   },
                                                   icon: const Icon(
@@ -311,7 +314,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                 MainAxisAlignment.end,
                                                 children: [
                                                   Text(
-                                                    'Date created',
+                                                    'creation date: ${_dateCreation}',
                                                     style: myTextFieldStyle,
                                                   ),
                                                 ],
@@ -404,8 +407,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                   }
                                                   sendMessage(
                                                       message: textController.text,
-                                                      reportID: _reportID);
-                                                  textController.clear();
+                                                      reportID: _reportID)
+                                                      .then((value) => textController.clear());
                                                 },
                                                 icon: const Icon(
                                                   Icons.navigate_next,
@@ -452,5 +455,18 @@ Future<void> sendMessage({required String message, required String reportID}) as
     }
   } catch (e){
     print("error sending msg");
+  }
+}
+
+Future<void> expertSaveReport(
+    {required String reportID, required String expertID}) async{
+  List<String> expertToSave = [];
+  expertToSave.add(expertID);
+  if(reportID!='' && expertID !=''){
+    try{
+        saveReportExpertList(expertToSaveID: expertToSave, reportID: reportID);
+    }catch(e) {
+      print("Report could not be saved in expert list");
+    }
   }
 }

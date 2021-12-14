@@ -1,5 +1,3 @@
-import 'package:demo_firebase_login/model/user_custom.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
@@ -7,6 +5,7 @@ import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/screens/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 class CreateReportUser extends StatefulWidget {
   //CreateReportUserWidget({Key key}) : super(key: key);
@@ -16,10 +15,11 @@ class CreateReportUser extends StatefulWidget {
 }
 
 class _CreateReportUserState extends State<CreateReportUser> {
-  String dropDownValue = "";
+  String dropDownValue = "bullying";
   late TextEditingController textController1;
   late TextEditingController textController2;
   final formKey = GlobalKey<FormState>();
+  late String currentDate;
 
   
   @override
@@ -27,6 +27,7 @@ class _CreateReportUserState extends State<CreateReportUser> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
+    currentDate = DateTime.now().toLocal().toString();
   }
 
   @override
@@ -88,20 +89,28 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                 maxLines: 1,
                               ),
                             ),
-                            DropdownButton<String>(
-                              value : dropDownValue.isNotEmpty ? dropDownValue : null,
-                              items: <String>[
-                                'bullying',
+                            DropdownButton(
+                              value: dropDownValue,
+                              items: <String>['bullying',
                                 'child abuse',
                                 'suicide',
                                 'nutrition']
-                                  .map<DropdownMenuItem<String>>((String value){
-                                return DropdownMenuItem<String>(value: value,
-                                  child: Text(value,style: myTextFieldStyle,),
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
                                 );
                               }).toList(),
-                              onChanged: (String? value) =>
-                                  setState(() => dropDownValue = value!),
+
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropDownValue = newValue!;
+                                });
+                              },
+                              icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: myDropDownButtonStyle,
                             ),
                                 Padding(
                                 padding:
@@ -168,6 +177,7 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                   description: textController2.text,
                                   uid : FirebaseAuth.instance.currentUser!.uid,
                                   chat: ['start of conversation with expert'],
+                                  date: currentDate.substring(0,currentDate.indexOf('.')),
                               )
                               .then((value) => Navigator.pop(context));
                             }
@@ -201,9 +211,10 @@ Future<void> createReport({
   required String category,
   required String uid,
   required List<String> chat,
+  required String date,
 }) async{
   try{
-    UserReport ur = UserReport(title: title, category: category ,description: description,uId: uid,chat: chat);
+    UserReport ur = UserReport(title: title, category: category ,description: description,uId: uid,chat: chat,date: date);
     if(ur.title != '' && ur.category !='' && ur.description != '' && ur.uId !=''&& chat.length==1){
       return createUserReport(ur: ur);
     } else {

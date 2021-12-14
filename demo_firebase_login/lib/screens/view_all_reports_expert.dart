@@ -20,6 +20,8 @@ class _ViewAllReportsExpert extends State<ViewAllReportsExpert> {
   /* TODO  ADD a filter bar by category */
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String userId = FirebaseAuth.instance.currentUser!.uid;
+  String dropDownValue ="bullying";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,34 @@ class _ViewAllReportsExpert extends State<ViewAllReportsExpert> {
             color: Color(0x00ffffff),
           ),
           child: ListView(
-              children: [GetReportCardExpert()]
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [DropdownButton(
+                  value: dropDownValue,
+                  items: <String>['bullying',
+                    'child abuse',
+                    'suicide',
+                    'nutrition']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropDownValue = newValue!;
+                    });
+                  },
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: myDropDownButtonStyle,
+              )],
+                ),GetReportCardExpert()
+              ]
           ),
         ),
       ),

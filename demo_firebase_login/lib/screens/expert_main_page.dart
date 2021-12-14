@@ -1,6 +1,7 @@
 import 'package:demo_firebase_login/screens/profile.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:demo_firebase_login/screens/view_all_reports_expert.dart';
+import 'package:demo_firebase_login/screens/view_patient_report_expert.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -89,7 +90,15 @@ class _HomeExpertState extends State<HomeExpert> {
               const Spacer(),
               ElevatedButton(
                 onPressed: () {
-                 print('poo poo');
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      duration: const Duration(milliseconds: 300),
+                      reverseDuration: const Duration(milliseconds: 300),
+                      child: ViewPatientReportExpert(),
+                    ),
+                  );
                 },
 
                 style: myButtonStyle,

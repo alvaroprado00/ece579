@@ -121,6 +121,7 @@ Future<void> createUserReport({ required UserReport ur }) async{
     'description' : ur.description,
     'uid' : ur.uId,
     'chat' : ur.chat,
+    'date' : ur.date,
   })
       .then((value) => print("report created"))
       .catchError((error) => print("Failed to create the report: $error"));

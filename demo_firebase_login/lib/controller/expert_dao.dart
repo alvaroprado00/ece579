@@ -140,3 +140,14 @@ Future<String> updatePrefixForExpert({required String value}){
     return "Failed to update prefix field";
   });
 }
+
+Future<String> saveReportExpertList({required List<String> expertToSaveID, required String reportID}){
+  CollectionReference reports = FirebaseFirestore.instance.collection('reports');
+  print('Im called');
+  return reports.doc(reportID).update({'reportSavedBy' : FieldValue.arrayUnion(expertToSaveID)})
+      .then((value) {
+    return "Report added to expert list";
+  }).catchError((error){
+    return "Could not save the report to the expert list";
+  });
+}
