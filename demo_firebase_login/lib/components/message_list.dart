@@ -19,21 +19,23 @@ class MessageList extends StatelessWidget {
           }
             if(snapshot.hasData){
               final List<DocumentSnapshot> documents = snapshot.data!.docs;
-              return (
-                  Column(
-                    children: documents.map((doc) =>
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          Expanded(
-                            child: Text('${doc['messageContent']}',),
+              return SingleChildScrollView(
+                child: (
+                    Column(
+                      children: documents.map((doc) =>
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            Expanded(
+                              child: Text('${doc['messageContent']}',),
+                            ),
+                                Text('${doc['userName']}'),
+                          ]
                           ),
-                              Text('${doc['userName']}'),
-                        ]
-                        ),
-                    ).toList(),
-                  )
+                      ).toList(),
+                    )
+                ),
               );
             }
             else{

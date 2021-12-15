@@ -244,8 +244,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                               'FBI IS ON THE WAY...',
                                                               style: myMessageStyle,
                                                             ),
-                                                            backgroundColor:
-                                                            Color(0xFF0000)));
+                                                            backgroundColor: Colors.red
+                                                            ));
                                                     },
                                                     icon: const Icon(
                                                       Icons.navigate_next,

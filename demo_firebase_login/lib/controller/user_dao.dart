@@ -128,6 +128,7 @@ Future<void> createUserReport({ required UserReport ur }) async{
         reports.doc(value.id).collection('subchat').doc(value.id+'chat').set({
           'userID' : ur.uId,
           'messageContent' : 'Welcome to the chat',
+          'userName' : 'User',
         }).then((value) => print("report + sub chat created"));
         })
       .catchError((error) => print("Failed to create the report: $error"));
