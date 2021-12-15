@@ -27,7 +27,7 @@ class GetReportList extends StatelessWidget{
           final List<DocumentSnapshot> documents = snapshot.data!.docs;
 
           if(snapshot.hasData && documents.length==0) {
-            return Text("No reports found");
+            return Center(child:Text("No reports found", style: textStyleForTitle,));
           }
           else {
             return Column(
@@ -123,13 +123,13 @@ class GetReportCardExpert extends StatelessWidget {
         future: userReports.get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Text("Error fetching reports");
+            return Center(child:Text("No reports found", style: textStyleForTitle,));
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             final List<DocumentSnapshot> documents = snapshot.data!.docs;
             if (snapshot.hasData && documents.length == 0) {
-              return Text("No reports found");
+              return Center(child:Text("No reports found", style: textStyleForTitle,));
             }
             else{
               return Column(
@@ -228,7 +228,7 @@ class GetReportCardPatientExpert extends StatelessWidget {
         if(snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
           final List<DocumentSnapshot> documents = snapshot.data!.docs;
           if(snapshot.hasData && documents.length==0) {
-            return Text("No reports found");
+            return Center(child:Text("No reports found", style: textStyleForTitle,));
           }
           else {
             return Column(

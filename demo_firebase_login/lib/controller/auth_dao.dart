@@ -42,7 +42,7 @@ Future <String> deleteUserAccount(){
     return 'User deleted';
 
   }).catchError((err){
-    return err.toString();
+    return 'User can\'t be deleted. You need to be recently signed in';
   });
 }
 

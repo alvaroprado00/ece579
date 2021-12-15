@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:demo_firebase_login/controller/expert_dao.dart';
 import 'package:demo_firebase_login/model/expert.dart';
+import 'package:demo_firebase_login/screens/entry_page.dart';
 import 'package:demo_firebase_login/screens/main.dart';
 import 'package:demo_firebase_login/screens/util_interface.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DiplomaPage extends StatefulWidget{
   @override
   State createState() {
-    // TODO: implement createState
     return DiplomaPageState();
   }
 
@@ -35,7 +35,7 @@ class DiplomaPageState extends State{
                   _openGallery(context);
                 },
                 title: const Text("Gallery"),
-                leading: const Icon(Icons.account_box,color: Color(0xFF94F9E1),),
+                leading: const Icon(Icons.account_box,color: Colors.black),
               ),
 
               getMyDivider(),
@@ -44,7 +44,7 @@ class DiplomaPageState extends State{
                   _openCamera(context);
                 },
                 title: const Text("Camera"),
-                leading: const Icon(Icons.camera,color:Color(0xFF94F9E1),),
+                leading: const Icon(Icons.camera,color:Colors.black,),
               ),
             ],
           ),
@@ -54,7 +54,6 @@ class DiplomaPageState extends State{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return  Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF94F9E1),
@@ -88,9 +87,16 @@ class DiplomaPageState extends State{
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Creating Expert', style: myMessageStyle,),backgroundColor: Color(0xFF94F9E1),),
                     );
+
+                    //Wait until the SnackBar disappears
+
+                    Future.delayed(const Duration(seconds: 4));
+
                     createExpert().then((value){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => const HomePage(),));
-                    });
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+                              (Route<dynamic> route) => route is HomePage
+                      );                    });
                   }else{
                     showErrorDialog(context);
                   }

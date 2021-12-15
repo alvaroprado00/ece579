@@ -119,8 +119,7 @@ class _CreateReportUserState extends State<CreateReportUser> {
                                 controller: textController2,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                hintText:
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum gravida mattis lorem, et posuere tortor rutrum vitae. Vivamus lacinia fringilla libero, at maximus quam imperdiet sed. Pellentesque egestas eget ex a consectetur.\n',
+                                hintText:'Explain to us what happened',
                                 hintStyle: myHintStyle,
                                 suffixIcon: textController2.text.isNotEmpty
                                 ? InkWell(

@@ -75,6 +75,7 @@ class infoFromUser extends StatelessWidget {
   UserCustom? user;
   Expert? expert;
   String urlCustom = 'none';
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
 
   //I define here all the functions that are going to be used supposing a user is using this page
 
@@ -98,6 +99,7 @@ class infoFromUser extends StatelessWidget {
     }
 
     return Scaffold(
+      key: _scaffoldkey,
       appBar: getCustomAppBar(text: 'Your profile info'),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -145,7 +147,7 @@ class infoFromUser extends StatelessWidget {
                     colorOfIcon: Colors.black,
                     todo: () {
                       displayTextInputDialog(context, 'Email',
-                          validatorForNotEmpty, functionToUpdateEmail);
+                          validatorForEmail, functionToUpdateEmail);
                     }),
               ),
               Padding(
@@ -219,7 +221,7 @@ class infoFromUser extends StatelessWidget {
     //Call the function on the user dao
 
     deleteUserAccount().then((val) async {
-      //I show a meesage to notify if everything went OK or if the user has not been deleted
+      //I show a message to notify if everything went OK or if the user has not been deleted
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(
           val,
@@ -230,12 +232,13 @@ class infoFromUser extends StatelessWidget {
 
       //We have to wait for the Snackbar to dissappear
 
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 5));
 
       //Then navigate to entry point and clean stack
-
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.pushAndRemoveUntil(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+              (Route<dynamic> route) => route is HomePage
+      );
     });
   }
 
@@ -281,12 +284,12 @@ class infoFromUser extends StatelessWidget {
                                   val,
                                   style: myMessageStyle,
                                 ),
-                                backgroundColor: Color(0xFF94F9E1),
+                                backgroundColor: const Color(0xFF94F9E1),
                               ));
 
                               //We have to wait for the Snackbar to dissappear
 
-                              await Future.delayed(Duration(seconds: 5));
+                              await Future.delayed(const Duration(seconds: 3));
 
                               Navigator.of(context).pop();
                             }).catchError((error) {

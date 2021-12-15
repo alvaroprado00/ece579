@@ -41,6 +41,12 @@ final labelStyleForButton = GoogleFonts.getFont(
   fontSize: 20,
 );
 
+final textStyleForTitle = GoogleFonts.getFont(
+  'Lato',
+  color: Colors.black,
+  fontSize: 24,
+);
+
 
 final myHintStyle = GoogleFonts.getFont(
   'Lato',
