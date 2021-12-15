@@ -12,8 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class GetMessageList extends StatelessWidget {
   final String reportID;
   List<String> messageList = [];
-
-
   GetMessageList(this.reportID);
   @override
   Widget build(BuildContext context) {

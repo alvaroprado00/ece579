@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo_firebase_login/components/message_list.dart';
 import 'package:demo_firebase_login/controller/expert_dao.dart';
 import 'package:demo_firebase_login/controller/user_dao.dart';
 import 'package:demo_firebase_login/screens/main.dart';
@@ -24,10 +26,18 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
   String _description = "";
   String _reportID = "";
   String _dateCreation ="";
-  //late Future<bool> isAdmin;
   late Future<bool> isAdmin;
+  String usernameUser = "";
+  String usernameExpert= "Expert";
+
 
   _loadVariablesSP() async{
+    FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get()
+        .then((DocumentSnapshot snapshot) => usernameUser = snapshot.get('userName'));
+    /*
+    FirebaseFirestore.instance.collection('expert').doc(FirebaseAuth.instance.currentUser!.uid).get()
+        .then((DocumentSnapshot snapshot) => usernameExpert = snapshot.get('userName'));
+        */
     SharedPreferences sp = await SharedPreferences.getInstance();
     setState(() {
       _title = (sp.getString('title') ?? 'Title not found');
@@ -134,7 +144,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                   padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 ),
-                                GetMessageList(_reportID), // HERE WE DISPLAY MSG
+                                MessageList(_reportID), // HERE WE DISPLAY MSG
                                 // BELLOW IS THE INPUT TEXT CARD
                                 Card(
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -205,7 +215,10 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                     }
                                                     sendMessage(
                                                         message: textController.text,
-                                                        reportID: _reportID).then((value) =>
+                                                        reportID: _reportID,
+                                                        isAdmin: true,
+                                                        username: usernameExpert,
+                                                    ).then((value) =>
                                                         expertSaveReport(reportID: _reportID,expertID: FirebaseAuth.instance.currentUser!.uid));
                                                     textController.clear();
                                                   },
@@ -338,7 +351,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                   padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 ),
-                                GetMessageList(_reportID), // HERE WE DISPLAY MSG
+                                MessageList(_reportID), // HERE WE DISPLAY MSG
                                 // BELLOW IS THE INPUT TEXT CARD
                                 Card(
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -407,7 +420,10 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                   }
                                                   sendMessage(
                                                       message: textController.text,
-                                                      reportID: _reportID)
+                                                      reportID: _reportID,
+                                                      isAdmin: false,
+                                                      username: usernameUser,
+                                                  )
                                                       .then((value) => textController.clear());
                                                 },
                                                 icon: const Icon(
@@ -444,14 +460,12 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
     }
   }
 
-Future<void> sendMessage({required String message, required String reportID}) async{
-  List<String> messageToSend = [];
-  messageToSend.add(message);
+Future<void> sendMessage({required String message, required String reportID, required bool isAdmin,required String username}) async{
   SharedPreferences sp = await SharedPreferences.getInstance();
   String _reportID = (sp.getString('reportID') ?? 'error');
   try{
     if(message!=''&& reportID == _reportID){
-      sendMessageFirestore(message: messageToSend, reportID: reportID);
+      sendMessageFirestore(message: message, reportID: reportID, isAdmin : isAdmin, username : username);
     }
   } catch (e){
     print("error sending msg");

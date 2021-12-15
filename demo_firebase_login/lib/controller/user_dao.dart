@@ -5,6 +5,7 @@ import 'package:demo_firebase_login/config/config_data.dart';
 import 'package:demo_firebase_login/model/user_custom.dart';
 import 'package:demo_firebase_login/model/user_report.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'auth_dao.dart';
 
@@ -123,14 +124,23 @@ Future<void> createUserReport({ required UserReport ur }) async{
     'chat' : ur.chat,
     'date' : ur.date,
   })
-      .then((value) => print("report created"))
+      .then((value){
+        reports.doc(value.id).collection('subchat').doc(value.id+'chat').set({
+          'userID' : ur.uId,
+          'messageContent' : 'Welcome to the chat',
+        }).then((value) => print("report + sub chat created"));
+        })
       .catchError((error) => print("Failed to create the report: $error"));
 }
 
-Future<void> sendMessageFirestore({required List<String> message, required String reportID}) async {
-  CollectionReference reports = FirebaseFirestore.instance.collection('reports');
-  return reports.doc(reportID).update({'chat': FieldValue.arrayUnion(message)})
-      .then((value) => print("message sent"))
+Future<void> sendMessageFirestore({required String message, required String reportID, required bool isAdmin, required String username}) async {
+  CollectionReference reportsMessageList = FirebaseFirestore.instance.collection('reports').doc(reportID).collection('subchat');
+  return reportsMessageList.add({
+    'messageContent' : message,
+    'userID' : reportID,
+    'userName' : username,
+    'isAdmin' : isAdmin,
+  }).then((value) => print("message sent"))
       .catchError((eroor) => print("Message could not be sent try again later"));
 }
 
