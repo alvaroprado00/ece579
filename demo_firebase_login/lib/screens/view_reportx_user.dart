@@ -120,9 +120,11 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                                 mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                                 children: [
-                                                  Text(
-                                                    '${_description}',
-                                                    style: myTextFieldStyle,
+                                                  Expanded(
+                                                    child: Text(
+                                                      '${_description}',
+                                                      style: myTextFieldStyle,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
