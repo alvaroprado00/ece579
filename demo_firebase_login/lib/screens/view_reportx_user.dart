@@ -169,13 +169,13 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                               decoration: InputDecoration(
                                                 hintText: 'type your answer here...',
                                                 hintStyle: myHintStyle,
-                                                enabledBorder: OutlineInputBorder(
+                                                enabledBorder: const OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                     color: Colors.black,
                                                     width: 1,
                                                   ),
                                                   borderRadius:
-                                                  const BorderRadius.only(
+                                                  BorderRadius.only(
                                                     topLeft: Radius.circular(4.0),
                                                     topRight: Radius.circular(4.0),
                                                   ),
@@ -196,68 +196,70 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                               textAlign: TextAlign.justify,
                                               maxLines: 5,
                                             ),
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                padding: EdgeInsetsDirectional.fromSTEB(
-                                                    0, 15, 0, 0),
-                                                child: ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    if (textController.text != '') {
-                                                      ScaffoldMessenger.of(context)
-                                                          .showSnackBar(SnackBar(
-                                                          content: Text(
-                                                            'Sending message...',
-                                                            style: myMessageStyle,
-                                                          ),
-                                                          backgroundColor:
-                                                          Color(0xFF94F9E1)));
-                                                    }
-                                                    sendMessage(
-                                                        message: textController.text,
-                                                        reportID: _reportID,
-                                                        isAdmin: true,
-                                                        username: usernameExpert,
-                                                    ).then((value) =>
-                                                        expertSaveReport(reportID: _reportID,expertID: FirebaseAuth.instance.currentUser!.uid));
-                                                    textController.clear();
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.navigate_next,
-                                                    size: 15,
-                                                    color: Colors.black,
-                                                  ),
-                                                  style: myButtonStyle,
-                                                  label: Text('Send message',
-                                                      style: labelStyleForButton),
-                                                ),
-
-                                              ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                                      10, 15, 0, 0),
-                                                  child: ElevatedButton.icon(
-                                                    onPressed: () {
-                                                        ScaffoldMessenger.of(context)
-                                                            .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                              'FBI IS ON THE WAY...',
-                                                              style: myMessageStyle,
-                                                            ),
-                                                            backgroundColor: Colors.red
-                                                            ));
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.navigate_next,
-                                                      size: 15,
-                                                      color: Colors.black,
+                                            Padding(
+                                              padding: const EdgeInsetsDirectional.fromSTEB(10, 30, 0, 10),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  SizedBox(
+                                                    height:50,
+                                                    width: 150,
+                                                    child: ElevatedButton.icon(
+                                                      onPressed: () {
+                                                        if (textController.text != '') {
+                                                          ScaffoldMessenger.of(context)
+                                                              .showSnackBar(SnackBar(
+                                                              content: Text(
+                                                                'Sending message...',
+                                                                style: myMessageStyle,
+                                                              ),
+                                                              backgroundColor:
+                                                              Color(0xFF94F9E1)));
+                                                        }
+                                                        sendMessage(
+                                                            message: textController.text,
+                                                            reportID: _reportID,
+                                                            isAdmin: true,
+                                                            username: usernameExpert,
+                                                        ).then((value) =>
+                                                            expertSaveReport(reportID: _reportID,expertID: FirebaseAuth.instance.currentUser!.uid));
+                                                        textController.clear();
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.navigate_next,
+                                                        size: 15,
+                                                        color: Colors.black,
+                                                      ),
+                                                      style: myButtonStyle,
+                                                      label: Text('Send message',
+                                                          style: labelStyleForButton),
                                                     ),
-                                                    style: myButtonStyleEmergency,
-                                                    label: Text('Alert authority',
-                                                        style: labelStyleForButton),
                                                   ),
-
-                                                )],
+                                                  SizedBox(
+                                                    height: 50,
+                                                    width: 150,
+                                                    child: ElevatedButton.icon(
+                                                      onPressed: () {
+                                                          ScaffoldMessenger.of(context)
+                                                              .showSnackBar(SnackBar(
+                                                              content: Text(
+                                                                'FBI IS ON THE WAY...',
+                                                                style: myMessageStyle,
+                                                              ),
+                                                              backgroundColor: Colors.red
+                                                              ));
+                                                      },
+                                                      icon: const Icon(
+                                                        Icons.navigate_next,
+                                                        size: 15,
+                                                        color: Colors.black,
+                                                      ),
+                                                      style: myButtonStyleEmergency,
+                                                      label: Text('Alert authority',
+                                                          style: labelStyleForButton),
+                                                    ),
+                                                  )],
+                                              ),
                                             ),
                                           ],
                                         ),
