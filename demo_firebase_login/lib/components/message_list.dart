@@ -8,11 +8,11 @@ class MessageList extends StatelessWidget {
   final String reportID;
   MessageList(this.reportID);
   final CollectionReference reportMessage = FirebaseFirestore.instance.collection("reports");
-
+/*TODO better display chat fit in the box no renderflex error and fix design o nreport */
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<QuerySnapshot>(
-        future: reportMessage.doc(reportID).collection('subchat').get(),
+        future: reportMessage.doc(reportID).collection('subchat').orderBy('time', descending: false).get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           if(snapshot.hasError){
             return(Text('error fetching messages'));

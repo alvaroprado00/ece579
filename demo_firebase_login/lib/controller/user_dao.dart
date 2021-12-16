@@ -141,6 +141,7 @@ Future<void> sendMessageFirestore({required String message, required String repo
     'userID' : reportID,
     'userName' : username,
     'isAdmin' : isAdmin,
+    'time' : DateTime.now(),
   }).then((value) => print("message sent"))
       .catchError((eroor) => print("Message could not be sent try again later"));
 }

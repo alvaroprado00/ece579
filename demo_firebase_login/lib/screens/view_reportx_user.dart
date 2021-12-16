@@ -77,7 +77,8 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
               body: SafeArea(
                 child: ListView(
                   padding: EdgeInsets.zero,
-                  scrollDirection: Axis.vertical,
+                  //scrollDirection: Axis.vertical,
+                  //shrinkWrap: true,
                   children: [
                     Column(
                       mainAxisSize: MainAxisSize.max,
@@ -117,10 +118,10 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    'creation date: ${_dateCreation}',
+                                                    '${_description}',
                                                     style: myTextFieldStyle,
                                                   ),
                                                 ],
@@ -128,10 +129,10 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional.fromSTEB(
-                                                  0, 8, 0, 0),
+                                                  0, 8, 0,0),
                                               child: Text(
-                                                '${_description}',
-                                                style: myTextFieldStyle,
+                                                'creation date: ${_dateCreation}',
+                                                style: myDateStyle,
                                               ),
                                             )
                                           ],
@@ -285,6 +286,7 @@ class _ViewReportUserXState extends State<ViewReportUserX> {
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: ListView(
+                  shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,
                   children: [

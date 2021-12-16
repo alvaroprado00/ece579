@@ -60,6 +60,12 @@ final myTextFieldStyle = GoogleFonts.getFont(
   fontSize: 15,
 );
 
+final myDateStyle = GoogleFonts.getFont(
+  'Lato',
+  color: Colors.black,
+  fontSize: 12,
+);
+
 final myDropDownButtonStyle= GoogleFonts.getFont(
   'Lato',
   color: Colors.black,
